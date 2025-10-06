@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useAppDispatch";
 import { setEmail, nextStep } from "../registrationSlice";
+import RegistrationForm from "./RegistrationForm";
 
 export default function StepOne() {
   const dispatch = useAppDispatch();
@@ -15,19 +16,23 @@ export default function StepOne() {
   };
 
   return (
-    <form onSubmit={handleNext} className="bg-white p-6 rounded-2xl shadow w-96">
-      <h2 className="text-2xl font-semibold mb-4">Шаг 1 — Email</h2>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => dispatch(setEmail(e.target.value))}
-        className="border rounded w-full p-2 mb-3"
-        placeholder="Введите корпоративный email"
-      />
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-      <button className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">
-        Далее
-      </button>
-    </form>
+    <RegistrationForm
+      title="Регистрация"
+      fields={[
+        { name: "email", label: "Корпоративный email", placeholder: "Введи почту", value: email, onChange: (v) => dispatch(setEmail(v)), error },
+      ]}
+      buttons={[
+        { text: "Продолжить", color: "blue", type: "submit" },
+        { text: "Войти", color: "gray", type: "button" },
+      ]}
+      showPolicy={true}
+      footer={
+        <>
+          <p className="text-slate-500 text-xs">Возник вопрос или что-то сломалось?</p>
+          <p className="text-blue-500 text-xs">Вступай в чат и задавай вопрос</p>
+        </>
+      }
+      onSubmit={handleNext}
+    />
   );
 }

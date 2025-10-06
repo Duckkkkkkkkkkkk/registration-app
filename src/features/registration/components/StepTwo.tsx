@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useAppDispatch";
 import { setName, setPassword, prevStep, reset } from "../registrationSlice";
 import { addUser } from "../../users/usersSlice";
+import RegistrationForm from "./RegistrationForm";
 
 export default function StepTwo() {
   const dispatch = useAppDispatch();
@@ -21,35 +22,24 @@ export default function StepTwo() {
   };
 
   return (
-    <form onSubmit={handleFinish} className="bg-white p-6 rounded-2xl shadow w-96">
-      <h2 className="text-2xl font-semibold mb-4">Шаг 2 — Имя и пароль</h2>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => dispatch(setName(e.target.value))}
-        className="border rounded w-full p-2 mb-3"
-        placeholder="Имя"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => dispatch(setPassword(e.target.value))}
-        className="border rounded w-full p-2 mb-3"
-        placeholder="Пароль"
-      />
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-      <div className="flex justify-between">
-        <button
-          type="button"
-          onClick={() => dispatch(prevStep())}
-          className="px-4 py-2 border rounded"
-        >
-          Назад
-        </button>
-        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-          Завершить
-        </button>
-      </div>
-    </form>
+    <RegistrationForm
+      title="Регистрация"
+      fields={[
+        { name: "name", label: "Имя", placeholder: "Введи имя", value: name, onChange: (v) => dispatch(setName(v)), error },
+        { name: "password", label: "Пароль", type: "password", placeholder: "Введи пароль", value: password, onChange: (v) => dispatch(setPassword(v)), error },
+      ]}
+      buttons={[
+        { text: "Завершить", color: "blue", type: "submit" },
+        { text: "Назад", color: "gray", type: "button", onClick: () => dispatch(prevStep()) },
+      ]}
+      showPolicy={false}
+      footer={
+        <>
+          <p className="text-slate-500 text-xs">Возник вопрос или что-то сломалось?</p>
+          <p className="text-blue-500 text-xs">Вступай в чат и задавай вопрос</p>
+        </>
+      }
+      onSubmit={handleFinish}
+    />
   );
 }

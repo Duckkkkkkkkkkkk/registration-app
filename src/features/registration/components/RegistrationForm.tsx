@@ -1,0 +1,73 @@
+import type { ReactNode } from "react";
+import Input from "../../UI/Input";
+import Button from "../../UI/Button";
+
+interface Field {
+  name: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (v: string) => void;
+  error?: string;
+}
+
+interface ButtonConfig {
+  text: string;
+  color?: "blue" | "gray";
+  onClick?: () => void;
+  type?: "button" | "submit";
+}
+
+interface RegistrationFormProps {
+  title: string;
+  fields: Field[];
+  buttons: ButtonConfig[];
+  footer?: ReactNode;
+  onSubmit?: (e: React.FormEvent) => void;
+  showPolicy?: boolean;
+}
+
+export default function RegistrationForm({ title, fields, buttons, footer, onSubmit, showPolicy = false }: RegistrationFormProps) {
+  return (
+    <form onSubmit={onSubmit} className="bg-white w-[536px] py-[56px] px-[68px] rounded-3xl shadow-[0px_4px_16px_0px_#00000014,0px_0px_16px_0px_#00000014]">
+      <h2 className="text-[44px] text-center text-[#1D2023] font-semibold mb-8">{title}</h2>
+
+      {fields.map((f) => (
+        <Input
+          key={f.name}
+          label={f.label}
+          type={f.type}
+          placeholder={f.placeholder}
+          value={f.value}
+          onChange={f.onChange}
+          error={f.error}
+        />
+      ))}
+
+      {showPolicy && (
+        <label className="flex items-start mt-2.5 gap-2 text-sm leading-[20px] text-gray-600">
+          <input
+            type="checkbox"
+            className="w-5 h-5 mt-2.5 accent-blue-500 rounded-xl cursor-pointer"
+            required
+          />
+          <span className="mt-2.5 text-[#626C77]">
+            Я подтверждаю согласие с{" "}
+            <a href="#" className="text-blue-500 hover:underline">
+              политикой конфиденциальности
+            </a>
+          </span>
+        </label>
+      )}
+
+      <div className="flex flex-col gap-3 mt-5 mb-4">
+        {buttons.map((b, idx) => (
+          <Button key={idx} text={b.text} color={b.color} onClick={b.onClick} type={b.type} />
+        ))}
+      </div>
+
+      {footer && <div className="text-center">{footer}</div>}
+    </form>
+  );
+}

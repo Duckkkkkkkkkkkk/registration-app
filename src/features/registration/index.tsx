@@ -6,7 +6,7 @@ export default function RegistrationPage() {
   const step = useAppSelector((state) => state.registration.step);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen">
       {step === 1 && <StepOne />}
       {step === 2 && <StepTwo />}
     </div>
