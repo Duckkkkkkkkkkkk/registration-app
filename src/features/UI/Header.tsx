@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.svg';
 import allProductsIcon from '../../assets/all_products_icon.svg';
 import notificationIcon from '../../assets/notification_icon.svg';
 
