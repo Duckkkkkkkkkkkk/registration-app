@@ -17,7 +17,7 @@ export default function Button({ text, color = "blue", onClick, type = "button",
       type={type}
       onClick={onClick}
       className={`
-        w-full rounded-xl px-9 py-4
+        w-full rounded-xl px-9 py-[22px]
         flex items-center justify-center 
         font-montserrat font-bold text-xs uppercase tracking-[0.05em]
         ${colors[color]} ${className || ""}
