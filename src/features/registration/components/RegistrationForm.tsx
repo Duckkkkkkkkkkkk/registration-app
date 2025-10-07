@@ -46,13 +46,13 @@ export default function RegistrationForm({ title, fields, buttons, footer, onSub
       ))}
 
       {showPolicy && (
-        <label className="flex items-start mt-2.5 gap-2 text-sm leading-[20px] text-gray-600">
+        <label className="flex items-start mt-1 gap-2 text-sm leading-[20px] text-gray-600">
           <input
             type="checkbox"
-            className="w-5 h-5 mt-2.5 accent-blue-500 rounded-xl cursor-pointer"
+            className="w-5 h-5 mt-1 accent-blue-500 rounded-xl cursor-pointer"
             required
           />
-          <span className="mt-2.5 text-[#626C77]">
+          <span className="mt-1 text-[#626C77]">
             Я подтверждаю согласие с{" "}
             <a href="#" className="text-blue-500 hover:underline">
               политикой конфиденциальности
