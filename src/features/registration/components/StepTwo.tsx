@@ -9,12 +9,19 @@ export default function StepTwo() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { email, name, password } = useAppSelector((s) => s.registration);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<{ name?: string; password?: string }>({});
 
   const handleFinish = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !password) return setError("Все поля обязательны");
-    if (password.length < 6) return setError("Пароль слишком короткий");
+    const newErrors: { name?: string; password?: string } = {};
+
+    if (!name) newErrors.name = "Имя обязательно";
+    if (!password) newErrors.password = "Пароль обязателен";
+    else if (password.length < 6) newErrors.password = "Пароль слишком короткий";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
 
     dispatch(addUser({ email, name, password }));
     dispatch(reset());
@@ -25,8 +32,29 @@ export default function StepTwo() {
     <RegistrationForm
       title="Регистрация"
       fields={[
-        { name: "name", label: "Имя", placeholder: "Введи имя", value: name, onChange: (v) => dispatch(setName(v)), error },
-        { name: "password", label: "Пароль", type: "password", placeholder: "Введи пароль", value: password, onChange: (v) => dispatch(setPassword(v)), error },
+        {
+          name: "name",
+          label: "Имя",
+          placeholder: "Введи имя",
+          value: name,
+          onChange: (v) => {
+            dispatch(setName(v));
+            if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+          },
+          error: errors.name,
+        },
+        {
+          name: "password",
+          label: "Пароль",
+          type: "password",
+          placeholder: "Введи пароль",
+          value: password,
+          onChange: (v) => {
+            dispatch(setPassword(v));
+            if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }));
+          },
+          error: errors.password,
+        },
       ]}
       buttons={[
         { text: "Завершить", color: "blue", type: "submit" },
@@ -36,7 +64,7 @@ export default function StepTwo() {
       footer={
         <>
           <p className="text-slate-500 text-xs">Возник вопрос или что-то сломалось?</p>
-          <p className="text-blue-500 text-xs">Вступай в чат и задавай вопрос</p>
+          <p className="text-blue-500 text-xs cursor-pointer hover:underline">Вступай в чат и задавай вопрос</p>
         </>
       }
       onSubmit={handleFinish}

@@ -19,7 +19,17 @@ export default function StepOne() {
     <RegistrationForm
       title="Регистрация"
       fields={[
-        { name: "email", label: "Корпоративный email", placeholder: "Введи почту", value: email, onChange: (v) => dispatch(setEmail(v)), error },
+        {
+          name: "email",
+          label: "Корпоративный email",
+          placeholder: "Введи почту",
+          value: email,
+          onChange: (v) => {
+            dispatch(setEmail(v));
+            if (error) setError("");
+          },
+          error,
+        },
       ]}
       buttons={[
         { text: "Продолжить", color: "blue", type: "submit" },
@@ -29,7 +39,7 @@ export default function StepOne() {
       footer={
         <>
           <p className="text-slate-500 text-xs">Возник вопрос или что-то сломалось?</p>
-          <p className="text-blue-500 text-xs">Вступай в чат и задавай вопрос</p>
+          <p className="text-blue-500 text-xs cursor-pointer hover:underline">Вступай в чат и задавай вопрос</p>
         </>
       }
       onSubmit={handleNext}
