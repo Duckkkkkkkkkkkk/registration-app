@@ -30,7 +30,7 @@ interface RegistrationFormProps {
 
 export default function RegistrationForm({ title, fields, buttons, footer, onSubmit, showPolicy = false }: RegistrationFormProps) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen w-full flex flex-col">
       <div className="flex-1 sm:flex-none sm:h-[196px] md:hidden"></div>
 
       <form onSubmit={onSubmit} className="

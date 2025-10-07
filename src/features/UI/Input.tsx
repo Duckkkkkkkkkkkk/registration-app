@@ -17,7 +17,7 @@ export default function Input({ label, type = "text", placeholder, value, onChan
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={`
-          rounded-xl w-full p-2 bg-gray-100 
+          rounded-xl w-full p-4 bg-gray-100 
           border border-[#BCC3D0]/80
           hover:border-[#BCC3D0]/100
           focus:border-blue-500
