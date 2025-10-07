@@ -5,6 +5,7 @@ import RegistrationForm from "./RegistrationForm";
 
 export default function StepOne() {
   const dispatch = useAppDispatch();
+  const users = useAppSelector((s) => s.users);
   const { email } = useAppSelector((s) => s.registration);
   const [error, setError] = useState("");
 
@@ -12,6 +13,9 @@ export default function StepOne() {
     e.preventDefault();
     if (!email) return setError("Введите email");
     if (!/\S+@\S+\.\S+/.test(email)) return setError("Некорректный email");
+
+    const userExists = users.some((u) => u.email.toLowerCase() === email.toLowerCase());
+    if (userExists) return setError("Пользователь с таким email уже существует");
     dispatch(nextStep());
   };
 
@@ -21,7 +25,7 @@ export default function StepOne() {
       fields={[
         {
           name: "email",
-          label: "Корпоративный email",
+          label: "Корпоративный e-mail",
           placeholder: "Введи почту",
           value: email,
           onChange: (v) => {
