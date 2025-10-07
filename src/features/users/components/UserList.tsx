@@ -11,11 +11,9 @@ interface UserListProps {
 
 export function UserList({ users, onDeleteUser, onUpdateUser }: UserListProps) {
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [editForm, setEditForm] = useState({ name: "", email: "" });
 
   const handleEditClick = (user: User) => {
     setEditingUser(user);
-    setEditForm({ name: user.name, email: user.email });
   };
 
   const handleSaveEdit = (email: string, updates: Partial<User>) => {
