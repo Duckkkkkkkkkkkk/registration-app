@@ -33,11 +33,14 @@ const registrationSlice = createSlice({
     prevStep: (state) => {
       if (state.step > 1) state.step -= 1;
     },
+    setStep: (state, action: PayloadAction<number>) => {
+      state.step = action.payload;
+    },
     reset: () => initialState,
   },
 });
 
-export const { setEmail, setName, setPassword, nextStep, prevStep, reset } =
+export const { setEmail, setName, setPassword, nextStep, prevStep, setStep, reset } =
   registrationSlice.actions;
 
 export default registrationSlice.reducer;

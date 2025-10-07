@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useAppDispatch";
-import { setEmail, nextStep } from "../registrationSlice";
+import { setEmail, nextStep, setStep } from "../registrationSlice";
 import RegistrationForm from "./RegistrationForm";
 
 export default function StepOne() {
@@ -17,6 +17,10 @@ export default function StepOne() {
     const userExists = users.some((u) => u.email.toLowerCase() === email.toLowerCase());
     if (userExists) return setError("Пользователь с таким email уже существует");
     dispatch(nextStep());
+  };
+
+  const handleLoginClick = () => {
+    dispatch(setStep(0));
   };
 
   return (
@@ -37,7 +41,7 @@ export default function StepOne() {
       ]}
       buttons={[
         { text: "Продолжить", color: "blue", type: "submit" },
-        { text: "Войти", color: "gray", type: "button" },
+        { text: "Войти", color: "gray", type: "button", onClick: handleLoginClick },
       ]}
       showPolicy={true}
       footer={
