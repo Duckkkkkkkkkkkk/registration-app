@@ -115,20 +115,20 @@ export default function EditUserModal({ user, onSave, onCancel, existingUsers }:
           />
         </div>
 
-        <div className="flex justify-end space-x-3 mt-6">
+        <div className="flex flex-col sm:flex-row justify-end sm:space-x-3 mt-6 gap-2">
           <Button 
             text="Отмена" 
             color="gray" 
             onClick={onCancel}
             type="button"
-            className="w-1/2"
+            className="w-full sm:w-1/2"
           />
           <Button 
             text="Сохранить" 
             color="blue" 
             onClick={handleSave}
             type="button"
-            className="w-1/2"
+            className="w-full sm:w-1/2"
           />
         </div>
       </div>
