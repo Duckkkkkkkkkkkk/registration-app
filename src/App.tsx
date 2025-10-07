@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import UsersPage from "./features/users";
 import RegistrationPage from "./features/registration";
 import Header from "./features/UI/Header";
@@ -13,19 +13,21 @@ export default function App() {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/" element={<RegistrationPage />} />
-        <Route 
-          path="/users" 
-          element={
-            <ProtectedRoute>
-              <UsersPage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route path="/404" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<RegistrationPage />} />
+          <Route 
+            path="/users" 
+            element={
+              <ProtectedRoute>
+                <UsersPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
